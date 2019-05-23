@@ -1,5 +1,5 @@
 # Solitaire
-Solitaire is a cross-platform Klondike card game.<br />
+Cross-platform Klondike card game.<br />
 Application has been written in Qt Framework using C++ language.
 
 ![Screenshot](docs/images/screenshot.png)
