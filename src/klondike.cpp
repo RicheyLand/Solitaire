@@ -141,7 +141,7 @@ void Klondike::allocate_memory()
 {
     cards = new ClickableLabel * [7];               //  allocate memory for all columns from cards array
 
-    for (int i = 0; i < 7; i++)                     //  allocate memory for all cards from every column of cards array
+    for (int i = 0; i < 7; i++)                     //  allocate memory for all cards of every column from cards array
         cards[i] = new ClickableLabel[14];
 
     downturned_card_1 = new QLabel;                 //  allocate memory for all downturned cards
@@ -159,17 +159,17 @@ void Klondike::allocate_memory()
     image_empty = new QPixmap(":/resources/empty.png");
     image_empty_possible = new QPixmap(":/resources/emptyp.png");
 
-    images = new QPixmap * [4];                     //  allocate memory for pixmaps of all columns from cards
+    images = new QPixmap * [4];                     //  allocate memory for pixmaps of all columns from cards array
 
     for (int i = 0; i < 4; i++)                     //  allocate memory for pixmaps of all cards from every column of cards array
         images[i] = new QPixmap[13];
 
-    images_select = new QPixmap * [4];              //  allocate memory for select pixmaps of all columns from cards
+    images_select = new QPixmap * [4];              //  allocate memory for select pixmaps of all columns from cards array
 
     for (int i = 0; i < 4; i++)                     //  allocate memory for select pixmaps of all cards from every column of cards array
         images_select[i] = new QPixmap[13];
 
-    images_possible = new QPixmap * [4];            //  allocate memory for possible pixmaps of all columns from cards
+    images_possible = new QPixmap * [4];            //  allocate memory for possible pixmaps of all columns from cards array
 
     for (int i = 0; i < 4; i++)                     //  allocate memory for possible pixmaps of all cards from every column of cards array
         images_possible[i] = new QPixmap[13];
@@ -379,7 +379,7 @@ void Klondike::init_layouts()
         down_h_layout->addLayout(down_v_layout + i);
     }
 
-    ui->tab2_v_layout->addLayout(up_h_layout);      //  add upper and downed horizontal layout into layout of second tab from tabs widget
+    ui->tab2_v_layout->addLayout(up_h_layout);      //  add upper and lower horizontal layout into layout of second tab from tabs widget
     ui->tab2_v_layout->addLayout(down_h_layout);
 }
 
@@ -642,7 +642,7 @@ void Klondike::refresh_default_maximum_size(int & x)
 
     int new_maximum = 0;                            //  new maximum height for covered card will be calculated
 
-    switch (N)                                  //  set new maximum height of covered cards by number of cards in column
+    switch (N)                                      //  set new maximum height of covered cards by number of cards in column
     {
         case 0:
         case 1:
@@ -701,10 +701,10 @@ void Klondike::refresh_default_maximum_size(int & x)
             break;
     }
 
-    if (high_resolution && new_maximum < 32)    //  covered cards can have bigger size if high resolution is active
+    if (high_resolution && new_maximum < 32)        //  covered cards can have bigger size if high resolution is active
         new_maximum = 32;
 
-    if (maximum_size[x] != new_maximum)             //  old and new maximum height of covered cards are different
+    if (maximum_size[x] != new_maximum)             //  old and new maximum heights of covered cards are different
     {
         for (int i = 0; i < 14; i++)                //  refresh maximum height of all covered cards from actual column
         {
@@ -838,7 +838,7 @@ void Klondike::new_game()
         refresh_sizes(i);                           //  refresh cards in current column
     }
 
-    next_card->setPixmap(* image_downturned);       //  refresh image of top stack card, cards deck top card and final cards
+    next_card->setPixmap(* image_downturned);       //  refresh image of top stack card, cards deck top card and all final cards
     top_stack_card->setPixmap(* image_empty);
 
     for (int i = 0; i < 4; i++)

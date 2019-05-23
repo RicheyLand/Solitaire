@@ -62,7 +62,7 @@ protected:
     void init_variables();                          //  initialize all variables
     void init_deck();                               //  generate cards deck content and initialize downturned cards
     void clear_cards();                             //  clear all stacks and arrays of cards to default state
-    void check_win();                               //  check if winning of game reached
+    void check_win();                               //  check if winning state of game has been reached
                                                     //  all these pure virtual methods must be redefined in interface subclass
     virtual void refresh_sizes(int) = 0;            //  refresh all cards from one column of cards array
     virtual void refresh_card(int &, int, int) = 0; //  refresh type and color of card from cards cards array
@@ -72,7 +72,7 @@ protected:
     virtual void show_card(int, int) = 0;           //  show card on concrete coordinates of cards array
     virtual void hide_card(int, int) = 0;           //  hide card on concrete coordinates of cards array
     virtual void use_downturned_card(int &, int) = 0;   //  hide downturned card and rebuild concrete cards array column again
-    virtual void handle_win() = 0;                  //  specific reaction when winning of game reached
+    virtual void handle_win() = 0;                  //  specific reaction when winning state of game has been reached
 
     void handle_command(int &, int &);              //  reaction for selected command from concrete interface
 };

@@ -48,8 +48,8 @@ public:
 
 signals:
     void clicked(int, int);                         //  signal with line and field coordinates which is sent when label is clicked
-    void entered(int, int);                         //  signal with line and field coordinates which is sent when mouse cursor entered label area
-    void leaved(int, int);                          //  signal with line and field coordinates which is sent when mouse cursor leaved label area
+    void entered(int, int);                         //  signal with line and field coordinates which is sent when mouse cursor enters label area
+    void leaved(int, int);                          //  signal with line and field coordinates which is sent when mouse cursor leaves label area
 
 protected:
     void mousePressEvent(QMouseEvent *);            //  handle mouse press event
@@ -80,11 +80,11 @@ private:
     QPixmap ** images_possible;                     //  images of all cards in cards array(possible card)
 
     QLabel * downturned_card_1;                     //  graphical representation of downturned card in second column of cards array
-    QLabel * downturned_card_2;                     //  graphical representation of downturned cards in third column of cards array
-    QLabel * downturned_card_3;                     //  graphical representation of downturned cards in fourth column of cards array
-    QLabel * downturned_card_4;                     //  graphical representation of downturned cards in fifth column of cards array
-    QLabel * downturned_card_5;                     //  graphical representation of downturned cards in sixth column of cards array
-    QLabel * downturned_card_6;                     //  graphical representation of downturned cards in seventh column of cards array
+    QLabel * downturned_card_2;                     //  graphical representation of downturned card in third column of cards array
+    QLabel * downturned_card_3;                     //  graphical representation of downturned card in fourth column of cards array
+    QLabel * downturned_card_4;                     //  graphical representation of downturned card in fifth column of cards array
+    QLabel * downturned_card_5;                     //  graphical representation of downturned card in sixth column of cards array
+    QLabel * downturned_card_6;                     //  graphical representation of downturned card in seventh column of cards array
 
     ClickableLabel * next_card;                     //  graphical representation of top card in cards deck
     ClickableLabel * top_stack_card;                //  graphical representation of top card in cards stack
@@ -94,7 +94,7 @@ private:
     int maximum_size[7];                            //  actual size of covered card in all columns in cards array
 
     QPixmap help_screen_pixmap;                     //  image of help screen
-    QLabel * separator;                             //  cards separator to allow correct alignment of game screen layouts
+    QLabel * separator;                             //  cards separator which allows alignment update of game screen layouts
     QPixmap new_game_pixmap;                        //  image of main menu button
     QPixmap help_pixmap;                            //  image of help button
     QPixmap about_pixmap;                           //  image of about button
@@ -116,11 +116,11 @@ private:
     void allocate_memory();                         //  allocate memory for all graphical elements
     void init_palettes();                           //  set default values for all colors
     void init_images();                             //  load images into all cards
-    void init_layouts();                            //  allocate memory for all layout and initialize them
+    void init_layouts();                            //  allocate memory for all layouts and initialize layouts
     void init_menu();                               //  initialize all buttons from game screen
     void init_cards();                              //  initialize all cards from game screen
     void refresh_default_maximum_size(int &);       //  update maximum value of cards covered by another card
-    void refresh_labels();                          //  refresh content of all tool tips
+    void refresh_labels();                          //  refresh content of all tooltips
     void new_game();                                //  reset game progress to default state
                                                     //  below are redefinitions of pure virtual methods from core source files
     void refresh_sizes(int x)
@@ -218,7 +218,7 @@ private:
     void refresh_stack_card(bool select)
     {
         if (select)                                 //  top stack card is selected
-        {                                           //  update top stack card image using content of cards stack description stack
+        {                                           //  update top stack card image using content of cards stack
             if (cards_stack.top().color == hearts)
                 top_stack_card->setPixmap(images_select[0][cards_stack.top().type - 1]);
             else if (cards_stack.top().color == diamonds)
@@ -229,7 +229,7 @@ private:
                 top_stack_card->setPixmap(images_select[3][cards_stack.top().type - 1]);
         }
         else                                        //  top stack card is in default state
-        {                                           //  update top stack card image using content of cards stack description stack
+        {                                           //  update top stack card image using content of cards stack
             if (cards_stack.size())
             {
                 if (cards_stack.top().color == hearts)

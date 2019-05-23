@@ -2,9 +2,9 @@
 
 random_device RD;                                   //	initialize seed engine(used only once)
 mt19937 RNG(RD());                                  //	initialize random number engine
-uniform_int_distribution<int> UNI_cards(1, 13);     //	select interval for distribution(card type)
-uniform_int_distribution<int> UNI_color(1, 4);      //	select interval for distribution(card color)
-uniform_int_distribution<int> UNI_bool(0, 1);       //  select interval for distribution(bool)
+uniform_int_distribution<int> UNI_cards(1, 13);     //	select interval of distribution(card type)
+uniform_int_distribution<int> UNI_color(1, 4);      //	select interval of distribution(card color)
+uniform_int_distribution<int> UNI_bool(0, 1);       //  select interval of distribution(bool)
 
 void Core::init_variables()
 {
@@ -33,7 +33,7 @@ void Core::init_deck()
         int type = UNI_cards(RNG);                  //  generate card type
         int color = UNI_color(RNG);                 //  generate card color
 
-        int found = false;                          //  holds if generated card is already cards deck
+        int found = false;                          //  holds if generated card is already in the cards deck
 
         for (int i = 0; i < N; i++)
         {
@@ -94,7 +94,7 @@ void Core::init_deck()
     for (int i = 0; i < 4; i++)
     {
         Card temp;
-        temp.type = 14;                             //  this value allows pushing ace onto empty final place
+        temp.type = 14;                             //  this value allows pushing ace onto the empty final place
         temp.color = empty;
 
         final_stack[i].push(temp);                  //  intialize all final cards
@@ -132,7 +132,7 @@ void Core::clear_cards()
     for (int i = 0; i < 4; i++)
     {
         Card temp;
-        temp.type = 14;                             //  this value allows pushing ace onto empty final place
+        temp.type = 14;                             //  this value allows pushing ace onto the empty final place
         temp.color = empty;
 
         final_stack[i].push(temp);                  //  intialize all final cards
@@ -166,7 +166,7 @@ void Core::handle_command(int & x, int & y)
 
         if (N)                                      //  cards deck is not empty
         {
-            cards_stack.push(cards_deck[N - 1]);    //  move next card from cards deck onto cards stack
+            cards_stack.push(cards_deck[N - 1]);    //  move next card from cards deck onto the cards stack
 
             refresh_stack_card(false);
 
@@ -174,7 +174,7 @@ void Core::handle_command(int & x, int & y)
 
             refresh_cards_deck();
         }
-        else if (redeals_left && cards_stack.size())    //  cards deck is empty, but cards stack not and some redeals left
+        else if (redeals_left && cards_stack.size())    //  cards deck is empty, but cards stack is not empty and some redeals still left
         {
             do
             {
@@ -193,7 +193,7 @@ void Core::handle_command(int & x, int & y)
         if (selected || final_selected)             //  getting card from stack is not possible if another card is selected
             return;
 
-        if (stack_selected)                         //  card on stack already selected
+        if (stack_selected)                         //  card on the stack is already selected
         {
             int N = possible.size();
 
@@ -213,9 +213,9 @@ void Core::handle_command(int & x, int & y)
         {
             if (cards_stack.size())                 //  cards stack is not empty
             {
-                possible.clear();                   //  reset possbile cards
+                possible.clear();                   //  reset possible cards
 
-                for (int i = 0 ; i < 7; i++)        //  iterate through all cards in cards array
+                for (int i = 0 ; i < 7; i++)        //  iterate through all cards in the cards array
                 {
                     for (int j = 13; j >= 0; j--)   //  iterate from bottom of column
                     {
@@ -248,7 +248,7 @@ void Core::handle_command(int & x, int & y)
                                 }
                             }
 
-                            break;                  //  moving is possible only at last card in column
+                            break;                  //  moving is possible only with the last card in column
                         }
                     }
                 }
@@ -311,7 +311,7 @@ void Core::handle_command(int & x, int & y)
             {
                 for (int i = 0; i < N; i++)         //  iterate through all possible cards
                 {
-                    if (possible[i].x == x)         //  selected card found in possible array
+                    if (possible[i].x == x)         //  selected card has been found in possible array
                     {
                         for (int j = 0; j < N; j++)     //  hide all highlighted possible cards
                         {
@@ -325,7 +325,7 @@ void Core::handle_command(int & x, int & y)
                         temp.type = final_stack[select.x - 100].top().type;
                         temp.color = final_stack[select.x - 100].top().color;
 
-                        final_stack[x - 100].push(temp);    //  swap card between two selected final cards
+                        final_stack[x - 100].push(temp);    //  swap cards between two selected final cards
                         final_stack[select.x - 100].pop();
 
                         refresh_final_card(x - 100, 0);     //  refresh cards after swap
@@ -376,7 +376,7 @@ void Core::handle_command(int & x, int & y)
 
             for (int i = 0; i < N; i++)             //  iterate through all possible cards
             {
-                if (possible[i].x == x)             //  selected cards from cards array found in possible cards
+                if (possible[i].x == x)             //  selected card from cards array found in possible cards
                 {
                     for (int j = 0; j < N; j++)     //  hide all highlighted possible cards
                     {
@@ -461,7 +461,7 @@ void Core::handle_command(int & x, int & y)
                         }
                         else                        //  there is no available downturned card in actual column
                         {
-                            show_card(select.x, 0);     //  show just empty place
+                            show_card(select.x, 0);     //  just show empty place
                             visible[select.x][0] = true;
                             refresh_card(select.x, 0, 0);
                         }
@@ -487,7 +487,7 @@ void Core::handle_command(int & x, int & y)
                     {
                         if (visible[i][j])          //  card is visible
                         {
-                            if (final_stack[x - 100].top().type == j + 1)   //  possible to move one of final card to this card
+                            if (final_stack[x - 100].top().type == j + 1)   //  possible to move one of final cards to this card
                             {
                                 bool allowed = false;
 
@@ -538,7 +538,7 @@ void Core::handle_command(int & x, int & y)
 
                 int N = possible.size();
 
-                if (N)                              //  moving selected card is possible
+                if (N)                              //  moving of selected card is possible
                 {
                     refresh_final_card(x - 100, 2);
 
@@ -682,7 +682,7 @@ void Core::handle_command(int & x, int & y)
                                 break;
                             }
                         }
-                                                    //  move all cards from already selected card to most bottom card to another column
+                                                    //  move all cards from column of selected card to lowest card of another column
                         for (int j = select.y; j <= max; j++)
                         {
                             visible[x][j] = true;
@@ -796,7 +796,7 @@ void Core::handle_command(int & x, int & y)
                     {
                         if (visible[i][j])          //  card is visible
                         {
-                            if (y == j + 1)         //  check if it possible to move seleted card to actual card
+                            if (y == j + 1)         //  check if it is  possible to move seleted card onto the actual card
                             {
                                 bool allowed = false;
 
