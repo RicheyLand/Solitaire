@@ -3,26 +3,7 @@
 
 #include "core.h"
 
-#include <QDialog>
-#include <QWidget>
-#include <QApplication>
-#include <QObject>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QSlider>
-#include <QPushButton>
-#include <QLabel>
-#include <QPixmap>
-#include <QEvent>
-#include <QKeyEvent>
-#include <QMouseEvent>
-#include <QEnterEvent>
-#include <QString>
-#include <QPalette>
-#include <QColor>
-#include <QIcon>
-#include <QDesktopWidget>
-#include <QTabWidget>
+#include <QtWidgets>
 
 enum
 {
@@ -40,7 +21,7 @@ class ClickableLabel : public QLabel                //  class which describes cl
     Q_OBJECT
 
 public:
-    explicit ClickableLabel(const QString & text = "", QWidget * parent = 0);
+    explicit ClickableLabel(const QString & text = "", QWidget * parent = nullptr);
     void allow_mouse_tracking();                    //  allow mouse tracking events for label
     int line;                                       //  line index
     int field;                                      //  field index
@@ -62,7 +43,7 @@ class Klondike : public QDialog, public Core
     Q_OBJECT
 
 public:
-    explicit Klondike(QWidget *parent = 0);
+    explicit Klondike(QWidget *parent = nullptr);
     ~Klondike();
 
 private:
