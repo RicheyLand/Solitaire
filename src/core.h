@@ -75,6 +75,8 @@ protected:
     virtual void handle_win() = 0;                  //  specific reaction when winning state of game has been reached
 
     void handle_command(int &, int &);              //  reaction for selected command from concrete interface
+
+    virtual ~Core() = 0;
 };
 
 #endif

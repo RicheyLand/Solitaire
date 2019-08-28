@@ -552,7 +552,7 @@ void Klondike::init_cards()
 
         down_v_layout[i].setAlignment(Qt::AlignTop);
 
-        int N = cards_deck.size();
+        unsigned long N = cards_deck.size();
 
         cards[i][cards_deck[N - 1].type].show();
         visible[i][cards_deck[N - 1].type] = true;
@@ -827,7 +827,7 @@ void Klondike::new_game()
 
         colors[i][0] = empty;
 
-        int N = cards_deck.size();
+        unsigned long N = cards_deck.size();
 
         cards[i][cards_deck[N - 1].type].show();    //  show one card from every column of cards array
         visible[i][cards_deck[N - 1].type] = true;

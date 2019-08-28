@@ -1,10 +1,10 @@
 #include "core.h"
 
-random_device RD;                                   //	initialize seed engine(used only once)
-mt19937 RNG(RD());                                  //	initialize random number engine
-uniform_int_distribution<int> UNI_cards(1, 13);     //	select interval of distribution(card type)
-uniform_int_distribution<int> UNI_color(1, 4);      //	select interval of distribution(card color)
-uniform_int_distribution<int> UNI_bool(0, 1);       //  select interval of distribution(bool)
+static random_device RD;                            //	initialize seed engine(used only once)
+static mt19937 RNG(RD());                           //	initialize random number engine
+static uniform_int_distribution<int> UNI_cards(1, 13);  //	select interval of distribution(card type)
+static uniform_int_distribution<int> UNI_color(1, 4);   //	select interval of distribution(card color)
+static uniform_int_distribution<int> UNI_bool(0, 1);    //  select interval of distribution(bool)
 
 void Core::init_variables()
 {
@@ -26,7 +26,7 @@ void Core::init_variables()
 
 void Core::init_deck()
 {
-    int N = 0;
+    unsigned long N = 0;
 
     do
     {
@@ -35,7 +35,7 @@ void Core::init_deck()
 
         int found = false;                          //  holds if generated card is already in the cards deck
 
-        for (int i = 0; i < N; i++)
+        for (unsigned long i = 0; i < N; i++)
         {
             if (cards_deck[i].type == type && cards_deck[i].color == color)
             {
@@ -162,7 +162,7 @@ void Core::handle_command(int & x, int & y)
         if (selected || stack_selected || final_selected)   //  getting next card is not possible if another card is selected
             return;
 
-        int N = cards_deck.size();                  //  get number of remaining cards in cards deck
+        unsigned long N = cards_deck.size();        //  get number of remaining cards in cards deck
 
         if (N)                                      //  cards deck is not empty
         {
@@ -195,11 +195,11 @@ void Core::handle_command(int & x, int & y)
 
         if (stack_selected)                         //  card on the stack is already selected
         {
-            int N = possible.size();
+            unsigned long N = possible.size();
 
             refresh_stack_card(false);              //  unselect stack card
 
-            for (int i = 0; i < N; i++)             //  hide all highlighted possible cards
+            for (unsigned long i = 0; i < N; i++)   //  hide all highlighted possible cards
             {
                 if (possible[i].x >= 100)
                     refresh_final_card(possible[i].x - 100, 0);
@@ -268,13 +268,13 @@ void Core::handle_command(int & x, int & y)
                     }
                 }
 
-                int N = possible.size();
+                unsigned long N = possible.size();
 
                 if (N)                              //  moving selected card is possible
                 {
                     refresh_stack_card(true);       //  refresh top of cards stack to previous card in stack
 
-                    for (int i = 0; i < N; i++)     //  iterate through all possible cards
+                    for (unsigned long i = 0; i < N; i++)     //  iterate through all possible cards
                     {
                         if (possible[i].x >= 100)
                             refresh_final_card(possible[i].x - 100, 1);     //  highlight final card
@@ -291,13 +291,13 @@ void Core::handle_command(int & x, int & y)
     {
         if (final_selected)                         //  final card already selected
         {                                           //  moving aces between final places is possible
-            int N = possible.size();
+            unsigned long N = possible.size();
 
             if (x == select.x)                      //  same selected final card selected again
             {
                 refresh_final_card(x - 100, 0);
 
-                for (int i = 0; i < N; i++)         //  hide all highlighted possible cards
+                for (unsigned long i = 0; i < N; i++)   //  hide all highlighted possible cards
                 {
                     if (possible[i].x >= 100)
                         refresh_final_card(possible[i].x - 100, 0);
@@ -309,11 +309,11 @@ void Core::handle_command(int & x, int & y)
             }
             else                                    //  another final card selected
             {
-                for (int i = 0; i < N; i++)         //  iterate through all possible cards
+                for (unsigned long i = 0; i < N; i++)   //  iterate through all possible cards
                 {
                     if (possible[i].x == x)         //  selected card has been found in possible array
                     {
-                        for (int j = 0; j < N; j++)     //  hide all highlighted possible cards
+                        for (unsigned long j = 0; j < N; j++)     //  hide all highlighted possible cards
                         {
                             if (possible[j].x >= 100)
                                 refresh_final_card(possible[j].x - 100, 0);
@@ -340,13 +340,13 @@ void Core::handle_command(int & x, int & y)
         }
         else if (stack_selected)                    //  cards stack already selected
         {
-            int N = possible.size();
+            unsigned long N = possible.size();
 
-            for (int i = 0; i < N; i++)             //  iterate through all possible cards
+            for (unsigned long i = 0; i < N; i++)   //  iterate through all possible cards
             {
                 if (possible[i].x == x)             //  find selected card in possible array
                 {
-                    for (int j = 0; j < N; j++)     //  hide all highlighted possible cards
+                    for (unsigned long j = 0; j < N; j++)     //  hide all highlighted possible cards
                     {
                         if (possible[j].x >= 100)
                             refresh_final_card(possible[j].x - 100, 0);
@@ -372,13 +372,13 @@ void Core::handle_command(int & x, int & y)
         }
         else if (selected)                          //  card from cards array already selected
         {
-            int N = possible.size();
+            unsigned long N = possible.size();
 
-            for (int i = 0; i < N; i++)             //  iterate through all possible cards
+            for (unsigned long i = 0; i < N; i++)   //  iterate through all possible cards
             {
                 if (possible[i].x == x)             //  selected card from cards array found in possible cards
                 {
-                    for (int j = 0; j < N; j++)     //  hide all highlighted possible cards
+                    for (unsigned long j = 0; j < N; j++)     //  hide all highlighted possible cards
                     {
                         if (possible[j].x >= 100)
                             refresh_final_card(possible[j].x - 100, 0);
@@ -536,13 +536,13 @@ void Core::handle_command(int & x, int & y)
                     }
                 }
 
-                int N = possible.size();
+                unsigned long N = possible.size();
 
                 if (N)                              //  moving of selected card is possible
                 {
                     refresh_final_card(x - 100, 2);
 
-                    for (int i = 0; i < N; i++)
+                    for (unsigned long i = 0; i < N; i++)
                     {
                         if (possible[i].x >= 100)
                             refresh_final_card(possible[i].x - 100, 1);
@@ -562,13 +562,13 @@ void Core::handle_command(int & x, int & y)
     {
         if (final_selected)                         //  one of final cards already selected
         {
-            int N = possible.size();
+            unsigned long N = possible.size();
 
-            for (int i = 0; i < N; i++)             //  iterate through all possible cards
+            for (unsigned long i = 0; i < N; i++)   //  iterate through all possible cards
             {
                 if (possible[i].x == x && possible[i].y == y)   //  selected card from cards array found in possible array
                 {
-                    for (int j = 0; j < N; j++)     //  hide all highlighted possible cards
+                    for (unsigned long j = 0; j < N; j++)     //  hide all highlighted possible cards
                     {
                         if (possible[j].x >= 100)
                             refresh_final_card(possible[j].x - 100, 0);
@@ -601,13 +601,13 @@ void Core::handle_command(int & x, int & y)
         }
         else if (stack_selected)                    //  card on stack already selected
         {
-            int N = possible.size();
+            unsigned long N = possible.size();
 
-            for (int i = 0; i < N; i++)             //  iterate through all possible cards
+            for (unsigned long i = 0; i < N; i++)   //  iterate through all possible cards
             {
                 if (possible[i].x == x && possible[i].y == y)
                 {
-                    for (int j = 0; j < N; j++)     //  hide all highlighted possible cards
+                    for (unsigned long j = 0; j < N; j++)     //  hide all highlighted possible cards
                     {
                         if (possible[j].x >= 100)
                             refresh_final_card(possible[j].x - 100, 0);
@@ -640,13 +640,13 @@ void Core::handle_command(int & x, int & y)
         }
         else if (selected)                          //  another card in cards array already selected
         {
-            int N = possible.size();
+            unsigned long N = possible.size();
 
             if (x == select.x && y == select.y)     //  already selected card selected again
             {
                 refresh_card(x, y, 0);
 
-                for (int i = 0; i < N; i++)         //  hide all highlighted possible cards
+                for (unsigned long i = 0; i < N; i++)   //  hide all highlighted possible cards
                 {
                     if (possible[i].x >= 100)
                         refresh_final_card(possible[i].x - 100, 0);
@@ -658,13 +658,13 @@ void Core::handle_command(int & x, int & y)
             }
             else                                    //  different card from cards array selected
             {
-                for (int i = 0; i < N; i++)         //  iterate through all possible cards
+                for (unsigned long i = 0; i < N; i++)   //  iterate through all possible cards
                 {
                     if (possible[i].x == x && possible[i].y == y)   //  selected card found in possible array
                     {
                         refresh_card(select.x, select.y, 0);
 
-                        for (int j = 0; j < N; j++)     //  hide all highlighted possible cards
+                        for (unsigned long j = 0; j < N; j++)     //  hide all highlighted possible cards
                         {
                             if (possible[j].x >= 100)
                                 refresh_final_card(possible[j].x - 100, 0);
@@ -861,13 +861,13 @@ void Core::handle_command(int & x, int & y)
                 }
             }
 
-            int N = possible.size();
+            unsigned long N = possible.size();
 
             if (N)                                  //  moving selected card is possible
             {
                 refresh_card(x, y, 2);
 
-                for (int i = 0; i < N; i++)         //  highlight all possible card
+                for (unsigned long i = 0; i < N; i++)   //  highlight all possible card
                 {
                     if (possible[i].x >= 100)
                         refresh_final_card(possible[i].x - 100, 1);
@@ -881,4 +881,9 @@ void Core::handle_command(int & x, int & y)
     }
 
     check_win();                                    //  check winning of game
+}
+
+Core::~Core()
+{
+    //  pass
 }
